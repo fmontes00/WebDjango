@@ -25,7 +25,7 @@ class Articulo(models.Model):
 class Lector(models.Model):
     nombre = models.CharField(max_length = 40)
     apellido = models.CharField(max_length = 40)
-    profesion = models.CharField(max_length = 40)
+    nivel = models.CharField(max_length = 40)
 
     def __str__(self):
         return self.nombre

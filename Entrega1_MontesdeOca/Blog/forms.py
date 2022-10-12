@@ -17,7 +17,7 @@ class ArticuloForm(ModelForm):
 class LectorForm(ModelForm):
     class Meta:
         model = Lector
-        fields = ['nombre','apellido','profesion']
+        fields = ['nombre','apellido','nivel']
 
 class ReseñaForm(ModelForm):
     class Meta:
