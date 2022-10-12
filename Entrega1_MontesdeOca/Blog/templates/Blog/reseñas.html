@@ -1,0 +1,16 @@
+{% block content %}
+
+<h1>Listado de Lectores y Reseñas</h1>
+
+{% for reseñas in reseña %}
+
+    <h3>{{ reseña.nombre }}</h3>
+    <h5>{{ reseña.apellido }}</h5>
+    <h5>{{ reseña.reseña }}</h5>
+    <h5>{{ reseña.articulo }}</h5>
+
+{% endfor %}
+
+
+
+{% endblock %}

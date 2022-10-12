@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect
-from .forms import ArticuloForm, AutorForm, LectorForm
-from .models import Articulo
+from .forms import ArticuloForm, AutorForm, LectorForm, ReseñaForm
+from .models import Articulo, Lector, Reseña
 
 
 # Create your views here.
@@ -51,3 +51,21 @@ def crearLector(request):
             return redirect('/Blog')
         except ValueError:
             return render(request, 'Blog/crearLector.html',{'form': LectorForm(),'error':'datos incorrectos, intente de nuevo'})
+
+
+def crearReseña(request):
+    if request.method == 'GET':
+        return render(request, 'Blog/crearLector.html',{'form': ReseñaForm()})
+    else:
+        try:
+            form = ReseñaForm(request.POST)
+            new_reseña = form.save(commit=False)
+            new_reseña.save()
+            return redirect('/Blog')
+        except ValueError:
+            return render(request, 'Blog/crearLector.html',{'form': ReseñaForm(),'error':'datos incorrectos, intente de nuevo'})
+
+
+def reseñas(request):
+    reseñas = Reseña.objects.all()
+    return render(request, 'Blog/reseñas.html',{"reseñas":reseñas})

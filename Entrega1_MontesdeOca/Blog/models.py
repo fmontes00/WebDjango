@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 
 
@@ -19,17 +20,21 @@ class Articulo(models.Model):
     def __str__(self):
         return self.titulo
 
-class Seccion(models.Model):
+
+#separar reseña y lector en dos clases distintas
+class Lector(models.Model):
     nombre = models.CharField(max_length = 40)
+    apellido = models.CharField(max_length = 40)
+    profesion = models.CharField(max_length = 40)
 
     def __str__(self):
         return self.nombre
 
-class Lector(models.Model):
-    nombre = models.CharField(max_length = 40)
-    apellido = models.CharField(max_length = 40)
+class Reseña(models.Model):
+    lector = models.ForeignKey(Lector,on_delete=models.CASCADE)
     articulo = models.ForeignKey(Articulo,on_delete=models.CASCADE)
     reseña = models.TextField()
 
     def __str__(self):
-        return self.nombre
+        return self.lector
+

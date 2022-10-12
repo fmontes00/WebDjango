@@ -1,7 +1,6 @@
-from dataclasses import fields
-from pyexpat import model
+
 from django.forms import ModelForm
-from .models import Autor, Articulo, Lector, Seccion
+from .models import Autor, Articulo, Lector, Reseña
 
 class AutorForm(ModelForm):
     class Meta:
@@ -13,13 +12,15 @@ class ArticuloForm(ModelForm):
         model = Articulo
         fields = ['titulo','texto','autor','fecha']
 
-class SeccionForm(ModelForm):
-    class Meta:
-        model = Seccion
-        fields = ['nombre']
+
 
 class LectorForm(ModelForm):
     class Meta:
         model = Lector
-        fields = ['nombre','apellido','articulo','reseña']
+        fields = ['nombre','apellido','profesion']
+
+class ReseñaForm(ModelForm):
+    class Meta:
+        model = Reseña
+        fields = ['lector','articulo','reseña']
 
