@@ -1,6 +1,6 @@
 
 from django.shortcuts import render, redirect
-from .forms import ArticuloForm, AutorForm
+from .forms import ArticuloForm, AutorForm, LectorForm
 from .models import Articulo
 
 
@@ -38,3 +38,16 @@ def crearArticulo(request):
 def articulos(request):
     articulos = Articulo.objects.all()
     return render(request,'Blog/articulos.html',{"articulos":articulos})
+
+
+def crearLector(request):
+    if request.method == 'GET':
+        return render(request, 'Blog/crearLector.html',{'form': LectorForm()})
+    else:
+        try:
+            form = LectorForm(request.POST)
+            new_lector = form.save(commit=False)
+            new_lector.save()
+            return redirect('/Blog')
+        except ValueError:
+            return render(request, 'Blog/crearLector.html',{'form': LectorForm(),'error':'datos incorrectos, intente de nuevo'})

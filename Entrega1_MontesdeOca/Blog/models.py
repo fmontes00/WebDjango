@@ -24,3 +24,12 @@ class Seccion(models.Model):
 
     def __str__(self):
         return self.nombre
+
+class Lector(models.Model):
+    nombre = models.CharField(max_length = 40)
+    apellido = models.CharField(max_length = 40)
+    articulo = models.ForeignKey(Articulo,on_delete=models.CASCADE)
+    reseña = models.TextField()
+
+    def __str__(self):
+        return self.nombre
