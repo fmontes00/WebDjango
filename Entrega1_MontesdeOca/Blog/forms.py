@@ -11,7 +11,7 @@ class AutorForm(ModelForm):
 class ArticuloForm(ModelForm):
     class Meta:
         model = Articulo
-        fields = ['titulo','texto','fecha']
+        fields = ['titulo','texto','autor','fecha']
 
 class SeccionForm(ModelForm):
     class Meta:
