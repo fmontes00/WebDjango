@@ -1,0 +1,16 @@
+{% block content %}
+
+<h1>Listado de articulos</h1>
+
+{% for articulo in articulos %}
+
+    <h3>{{ articulo.titulo }}</h3>
+    <h5>{{ articulo.texto }}</h5>
+    <h5>{{ articulo.fecha }}</h5>
+    <h5>{{ articulo.autor }}</h5>
+
+{% endfor %}
+
+
+
+{% endblock %}

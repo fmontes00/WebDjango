@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect
 from .forms import ArticuloForm, AutorForm
+from .models import Articulo
 
 
 # Create your views here.
@@ -34,3 +35,6 @@ def crearArticulo(request):
             return render(request, 'Blog/crearArticulo.html',{'form': ArticuloForm(),'error':'datos incorrectos, intente de nuevo'})
 
 
+def articulos(request):
+    articulos = Articulo.objects.all()
+    return render(request,'Blog/articulos.html',{"articulos":articulos})
