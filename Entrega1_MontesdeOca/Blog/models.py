@@ -32,7 +32,7 @@ class Lector(models.Model):
 
 class Reseña(models.Model):
     lector = models.ForeignKey(Lector,on_delete=models.CASCADE)
-    articulo = models.ForeignKey(Articulo,on_delete=models.CASCADE)
+    articulo = models.ForeignKey(Articulo,null = True,on_delete=models.SET_NULL)
     reseña = models.TextField()
 
     def __str__(self):
