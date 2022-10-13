@@ -1,7 +1,11 @@
-
+from pyexpat import model
+from unicodedata import name
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from .forms import ArticuloForm, AutorForm, LectorForm, ReseñaForm
-from .models import Articulo, Lector, Reseña
+from .models import Articulo, Autor, Lector, Reseña
+from django.views.generic import ListView
+
 
 
 # Create your views here.
@@ -17,7 +21,7 @@ def crearAutor(request):
             form = AutorForm(request.POST)
             new_autor = form.save(commit=False)
             new_autor.save()
-            return redirect('/Blog')
+            return redirect('/')
         except ValueError:
             return render(request, 'Blog/crearAutor.html',{'form': AutorForm(),'error':'datos incorrectos, intente de nuevo'})
 
@@ -30,7 +34,7 @@ def crearArticulo(request):
             form = ArticuloForm(request.POST)
             new_articulo = form.save(commit=False)
             new_articulo.save()
-            return redirect('/Blog')
+            return redirect('/')
         except ValueError:
             return render(request, 'Blog/crearArticulo.html',{'form': ArticuloForm(),'error':'datos incorrectos, intente de nuevo'})
 
@@ -48,7 +52,7 @@ def crearLector(request):
             form = LectorForm(request.POST)
             new_lector = form.save(commit=False)
             new_lector.save()
-            return redirect('/Blog')
+            return redirect('/')
         except ValueError:
             return render(request, 'Blog/crearLector.html',{'form': LectorForm(),'error':'datos incorrectos, intente de nuevo'})
 
@@ -61,7 +65,7 @@ def crearReseña(request):
             form = ReseñaForm(request.POST)
             new_reseña = form.save(commit=False)
             new_reseña.save()
-            return redirect('/Blog')
+            return redirect('/')
         except ValueError:
             return render(request, 'Blog/crearLector.html',{'form': ReseñaForm(),'error':'datos incorrectos, intente de nuevo'})
 
@@ -69,3 +73,21 @@ def crearReseña(request):
 def reseñas(request):
     reseñas = Reseña.objects.all()
     return render(request, 'Blog/reseñas.html',{"reseñas":reseñas})
+
+###################### Modificar ########################
+class busqueda(ListView):
+    model = Autor
+    template_name = "busqueda.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get("q")
+        object_list = Autor.objects.filter(Q(nombre__icontains=query))
+        return object_list
+
+
+
+
+
+
+
+
