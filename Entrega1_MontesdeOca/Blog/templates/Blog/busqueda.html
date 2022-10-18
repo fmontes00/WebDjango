@@ -1,7 +1,18 @@
-{% block content %}
 
-<form action="{% url 'busqueda' %}" method="GET">
-    <p><input type="text" name="q" placeholder="Search..."></p>
+<h1>Buscador de Autores</h1>
+
+
+  {% block content %}
+  <form method="GET">
+    <p><input type="text" name="nombre" id="nombre"></p>
+    <input type="submit" value="Buscar por nombre">
 </form>
+
+    {% for autor in autores_encontrados%}
+      {{ autor.nombre }}
+      {{ autor.apellido }}
+      {{ autor.profesion }}
+      <br>
+    {% endfor %}
 
 {% endblock %}

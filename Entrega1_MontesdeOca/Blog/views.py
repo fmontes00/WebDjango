@@ -1,10 +1,11 @@
+
+from django.http import HttpResponse
 from pyexpat import model
-from unicodedata import name
-from django.db.models import Q
+
 from django.shortcuts import render, redirect
 from .forms import ArticuloForm, AutorForm, LectorForm, ReseñaForm
 from .models import Articulo, Autor, Lector, Reseña
-from django.views.generic import ListView
+
 
 
 
@@ -75,14 +76,16 @@ def reseñas(request):
     return render(request, 'Blog/reseñas.html',{"reseñas":reseñas})
 
 ###################### Modificar ########################
-class busqueda(ListView):
-    model = Autor
-    template_name = "busqueda.html"
 
-    def get_queryset(self):
-        query = self.request.GET.get("q")
-        object_list = Autor.objects.filter(Q(nombre__icontains=query))
-        return object_list
+def buscar(request):   
+
+    nombre_a_buscar = request.GET.get("nombre")
+    autores = Autor.objects.filter(nombre=nombre_a_buscar)
+
+    contexto = {"nombre": nombre_a_buscar, "autores_encontrados": autores}
+
+    return render(request, "Blog/busqueda.html", contexto)
+
 
 
 
