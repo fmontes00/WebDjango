@@ -8,56 +8,107 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Articulo',
+            name="Articulo",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('titulo', models.CharField(max_length=60)),
-                ('texto', models.TextField()),
-                ('fecha', models.DateField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("titulo", models.CharField(max_length=60)),
+                ("texto", models.TextField()),
+                ("fecha", models.DateField()),
             ],
         ),
         migrations.CreateModel(
-            name='Autor',
+            name="Autor",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=40)),
-                ('apellido', models.CharField(max_length=40)),
-                ('profesion', models.CharField(max_length=40)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=40)),
+                ("apellido", models.CharField(max_length=40)),
+                ("profesion", models.CharField(max_length=40)),
             ],
         ),
         migrations.CreateModel(
-            name='Lector',
+            name="Lector",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=40)),
-                ('apellido', models.CharField(max_length=40)),
-                ('profesion', models.CharField(max_length=40)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=40)),
+                ("apellido", models.CharField(max_length=40)),
+                ("profesion", models.CharField(max_length=40)),
             ],
         ),
         migrations.CreateModel(
-            name='Seccion',
+            name="Seccion",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nombre', models.CharField(max_length=40)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nombre", models.CharField(max_length=40)),
             ],
         ),
         migrations.CreateModel(
-            name='Reseña',
+            name="Reseña",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('reseña', models.TextField()),
-                ('articulo', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Blog.articulo')),
-                ('lector', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Blog.lector')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("reseña", models.TextField()),
+                (
+                    "articulo",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="Blog.articulo"
+                    ),
+                ),
+                (
+                    "lector",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="Blog.lector"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='articulo',
-            name='autor',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='Blog.autor'),
+            model_name="articulo",
+            name="autor",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="Blog.autor"
+            ),
         ),
     ]
