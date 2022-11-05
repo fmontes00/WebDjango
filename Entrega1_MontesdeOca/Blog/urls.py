@@ -10,4 +10,9 @@ urlpatterns = [
     path("reseñas", views.reseñas, name="reseñas"),
     path("crearReseña", views.crearReseña, name="crearReseña"),
     path("buscar", views.buscar, name="buscar"),
+
+    #Authentication
+    path('signup/', views.signupuser, name= 'signupuser'),
+    path('logout/', views.logoutuser, name= 'logoutuser'),
+    path('login/', views.loginuser, name= 'loginuser'),
 ]
