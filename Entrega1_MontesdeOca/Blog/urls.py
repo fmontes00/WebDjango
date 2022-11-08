@@ -6,10 +6,10 @@ urlpatterns = [
     path("crearAutor", views.crearAutor, name="crearAutor"),
     path("crearArticulo", views.crearArticulo, name="crearArticulo"),
     path("articulos", views.articulos, name="articulos"),
-    path("crearLector", views.crearLector, name="crearLector"),
-    path("reseñas", views.reseñas, name="reseñas"),
-    path("crearReseña", views.crearReseña, name="crearReseña"),
-    path("buscar", views.buscar, name="buscar"),
+    path("user_articulos", views.user_articulos, name="user_articulos"),
+    path("view_article", views.view_article, name="view_article"),
+    path("delete_articulo", views.delete_article, name="delete_articulo"),
+
     path("",views.landing_page,name="landing_page"),
 
     #Authentication

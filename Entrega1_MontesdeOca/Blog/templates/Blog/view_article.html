@@ -1,0 +1,27 @@
+{% extends 'Blog/base.html' %}
+
+{% block content %}
+
+<a href="{% url 'home' %}">Home Page</a><br><br>
+
+{{ article.titulo }}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p}}
+    <button type="submit">Save</button>
+</form>
+
+
+<form method="POST" action="{% url 'delete_articulo' articulo.id %}">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+
+
+
+
+
+
+
+{% endblock %}

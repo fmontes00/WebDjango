@@ -1,12 +1,12 @@
 
 from sqlite3 import IntegrityError
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ArticuloForm, AutorForm, LectorForm, ReseñaForm
+from .forms import ArticuloForm, AutorForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import Articulo, Autor, Lector, Reseña
+from .models import Articulo, Autor
 
 
 # Create your views here.
@@ -80,7 +80,7 @@ def crearArticulo(request):
             form = ArticuloForm(request.POST)
             new_articulo = form.save(commit=False)
             new_articulo.save()
-            return redirect("/")
+            return redirect('/home')
         except ValueError:
             return render(
                 request,
@@ -97,53 +97,39 @@ def articulos(request):
     return render(request, "Blog/articulos.html", {"articulos": articulos})
 
 @login_required
-def crearLector(request):
-    if request.method == "GET":
-        return render(request, "Blog/crearLector.html", {"form": LectorForm()})
+def user_articulos(request):
+    user_articles = Articulo.objects.filter(user = request.user)
+    return render (request, 'Blog/user_articulos.html',{'user_articles': user_articles})
+
+# @login_required
+# def edit_article(request, article_pk):
+#     article = get_object_or_404(Articulo, pk = article_pk, user = request.user)
+#     if request.method == 'POST':
+#         article.save()
+#         return redirect('/home')
+
+@login_required
+def delete_article(request, article_pk):
+    article = get_object_or_404(Articulo, pk = article_pk, user = request.user)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('/home')
+
+
+@login_required
+def view_article(request, article_pk):
+    article = get_object_or_404(Articulo, pk = article_pk, user = request.user)
+    if request.method == 'GET':
+        form = ArticuloForm(instance= article)
+        return render(request, 'Blog/view_article.html', {'article': article, 'form': form})
     else:
         try:
-            form = LectorForm(request.POST)
-            new_lector = form.save(commit=False)
-            new_lector.save()
-            return redirect("/")
+            form = ArticuloForm(request.POST, instance= article)
+            form.save()
+            return redirect('/home')
         except ValueError:
-            return render(
-                request,
-                "Blog/crearLector.html",
-                {"form": LectorForm(), "error": "datos incorrectos, intente de nuevo"},
-            )
-
-@login_required
-def crearReseña(request):
-    if request.method == "GET":
-        return render(request, "Blog/crearLector.html", {"form": ReseñaForm()})
-    else:
-        try:
-            form = ReseñaForm(request.POST)
-            new_reseña = form.save(commit=False)
-            new_reseña.save()
-            return redirect("/")
-        except ValueError:
-            return render(
-                request,
-                "Blog/crearLector.html",
-                {"form": ReseñaForm(), "error": "datos incorrectos, intente de nuevo"},
-            )
-
-@login_required
-def reseñas(request):
-    reseñas = Reseña.objects.all()
-    return render(request, "Blog/reseñas.html", {"reseñas": reseñas})
+            return redirect(request, 'Blog/view_article.html', {'article': article, 'error': 'wrong data'})
 
 
-###################### Modificar ########################
 
-@login_required
-def buscar(request):
 
-    nombre_a_buscar = request.GET.get("nombre")
-    autores = Autor.objects.filter(nombre=nombre_a_buscar)
-
-    contexto = {"nombre": nombre_a_buscar, "autores_encontrados": autores}
-
-    return render(request, "Blog/busqueda.html", contexto)

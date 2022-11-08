@@ -1,14 +1,14 @@
 {% block content %}
+
 <a href="{% url 'home' %}">Home Page</a><br><br>
 
-<h1>Listado de articulos</h1>
+<h1>Listado de articulos personales</h1>
 
-{% for articulo in articulos %}
+{% for articulo in user_articles %}
 
     <h3>{{ articulo.titulo }}</h3>
-    <h5>{{ articulo.texto }}</h5>
     <h5>{{ articulo.fecha }}</h5>
-    <h5>{{ articulo.user }}</h5>
+    
 
 {% endfor %}
 

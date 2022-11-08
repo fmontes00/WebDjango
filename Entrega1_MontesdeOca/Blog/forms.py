@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Autor, Articulo, Lector, Reseña
+from .models import Autor, Articulo
 
 
 class AutorForm(ModelForm):
@@ -11,16 +11,5 @@ class AutorForm(ModelForm):
 class ArticuloForm(ModelForm):
     class Meta:
         model = Articulo
-        fields = ["titulo", "texto", "autor", "fecha"]
+        fields = ["titulo", "texto", "user", "fecha"]
 
-
-class LectorForm(ModelForm):
-    class Meta:
-        model = Lector
-        fields = ["nombre", "apellido", "nivel"]
-
-
-class ReseñaForm(ModelForm):
-    class Meta:
-        model = Reseña
-        fields = ["lector", "articulo", "reseña"]
