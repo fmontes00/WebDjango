@@ -10,6 +10,11 @@ from .models import Articulo, Autor, Lector, Reseña
 
 
 # Create your views here.
+
+def landing_page(request):
+    return render(request,"Blog/landing_page.html")
+
+@login_required
 def home(request):
     return render(request, "Blog/home.html")
 
@@ -23,7 +28,7 @@ def signupuser(request):
                 user = User.objects.create_user(request.POST['username'],password = request.POST['password1'])
                 user.save()
                 login(request,user)
-                return redirect("/")
+                return redirect('/home')
             except IntegrityError:
                 return render(request, 'Blog/signupuser.html', {'form':UserCreationForm(), 'error': "username alredy taken, select a new one"})
         else: #mismatch password
@@ -39,14 +44,14 @@ def loginuser(request):
             return render(request, 'Blog/loginuser.html', {'form':AuthenticationForm(), 'error': "username and password did not match"})
         else:
             login(request, user)
-            return redirect('/')
+            return redirect('/home')
 
 
 @login_required
 def logoutuser(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('home')
+        return redirect('/')
 
 
 @login_required
